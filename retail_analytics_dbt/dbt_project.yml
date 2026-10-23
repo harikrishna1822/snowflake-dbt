@@ -1,0 +1,24 @@
+name: 'retail_analytics_dbt'
+version: '1.0.0'
+config-version: 2
+
+profile: 'retail_analytics_dbt'
+
+model-paths: ["models"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+# Source location is a variable so the same models run against
+# native CORE tables (Snowflake) or the CORE_ICEBERG_S3 Iceberg tables (external).
+vars:
+  source_database: RETAIL_ANALYTICS
+  source_schema: CORE
+
+models:
+  retail_analytics_dbt:
+    staging:
+      +materialized: view
+    marts:
+      +materialized: table

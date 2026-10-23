@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: stg_store
+    columns:
+      - name: STORE_SK
+        tests: [not_null, unique]
+      - name: STORE_TYPE
+        tests:
+          - accepted_values:
+              values: ['STANDARD', 'OUTLET', 'FLAGSHIP']
+
+  - name: stg_product
+    columns:
+      - name: PRODUCT_SK
+        tests: [not_null, unique]
+      - name: PRICE_TIER
+        tests:
+          - accepted_values:
+              values: ['Premium', 'Mid', 'Budget']
+
+  - name: stg_sales
+    columns:
+      - name: SALE_SK
+        tests: [not_null, unique]
+      - name: PAYMENT_METHOD
+        tests:
+          - accepted_values:
+              values: ['CASH', 'CREDIT_CARD', 'DEBIT_CARD', 'MOBILE_PAY']

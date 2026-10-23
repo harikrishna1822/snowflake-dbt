@@ -1,0 +1,23 @@
+version: 2
+
+sources:
+  - name: core
+    database: "{{ var('source_database') }}"
+    schema: "{{ var('source_schema') }}"
+    description: "Cleaned retail dimensions and facts (native CORE, or CORE_ICEBERG_S3 for the external target)"
+    tables:
+      - name: dim_store
+        identifier: DIM_STORE
+        columns:
+          - name: STORE_SK
+            tests: [not_null, unique]
+      - name: dim_product
+        identifier: DIM_PRODUCT
+        columns:
+          - name: PRODUCT_SK
+            tests: [not_null, unique]
+      - name: fact_sales
+        identifier: FACT_SALES
+        columns:
+          - name: SALE_SK
+            tests: [not_null, unique]

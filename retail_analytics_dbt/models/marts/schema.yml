@@ -1,0 +1,42 @@
+version: 2
+
+models:
+  - name: dim_store
+    description: "Store dimension"
+    columns:
+      - name: STORE_SK
+        tests: [not_null, unique]
+
+  - name: dim_product
+    description: "Product dimension"
+    columns:
+      - name: PRODUCT_SK
+        tests: [not_null, unique]
+
+  - name: fct_sales
+    description: "Sales lines joined to store and product"
+    columns:
+      - name: SALE_SK
+        tests: [not_null, unique]
+      - name: STORE_SK
+        tests:
+          - relationships:
+              to: ref('dim_store')
+              field: STORE_SK
+      - name: PRODUCT_SK
+        tests:
+          - relationships:
+              to: ref('dim_product')
+              field: PRODUCT_SK
+
+  - name: agg_sales_daily_store
+    description: "Daily sales KPIs per store"
+    columns:
+      - name: REVENUE
+        tests: [not_null]
+
+  - name: agg_product_performance
+    description: "Product performance and category revenue rank"
+    columns:
+      - name: PRODUCT_SK
+        tests: [not_null, unique]

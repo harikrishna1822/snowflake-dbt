@@ -1,0 +1,12 @@
+retail_analytics_dbt:
+  target: snowflake
+  outputs:
+    snowflake:
+      type: snowflake
+      account: ""
+      user: ""
+      role: SYSADMIN
+      database: RETAIL_ANALYTICS
+      warehouse: WH_TRANSFORM
+      schema: DBT_RETAIL
+      threads: 4
